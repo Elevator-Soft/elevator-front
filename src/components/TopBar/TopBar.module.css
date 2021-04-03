@@ -1,0 +1,21 @@
+.topbar {
+    width: 100%;
+
+    border-bottom: 2px solid #aaaaaa;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.profile-info {
+    display: flex;
+    width: auto;
+    float: right;
+    border-left: 1px solid #aaaaaa;
+}
+
+.delimiter {
+    display: flex;
+    width: auto;
+}
