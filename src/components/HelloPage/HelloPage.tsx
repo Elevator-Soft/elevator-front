@@ -9,7 +9,7 @@ export class HelloPage extends React.Component<HelloPageProps> {
     render() {
         return (
             <div>
-                Привет!
+                Привет! Здесь будет что-нибудь классное
             </div>
         );
     }

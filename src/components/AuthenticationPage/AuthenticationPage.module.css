@@ -1,0 +1,48 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    flex-grow: 1;
+}
+
+.rowContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: auto;
+    height: auto;
+}
+
+.authorizationContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 350px;
+    height: auto;
+    text-align: center;
+
+    box-shadow: 1px 1px 1px 1px #aaaaaa;
+}
+
+.elevatorTitle {
+    font-size: 20px;
+    border-bottom: 2px solid #dddddd;
+}
+
+.googleAuthorizationLink {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    display: block;
+    text-align: center;
+    border-bottom: 1px solid #dddddd;
+}
+
+.delimiter {
+    height: 50px;
+}
+
+.googleAuthorizationLink:hover {
+    background-color: #dddddd;
+}

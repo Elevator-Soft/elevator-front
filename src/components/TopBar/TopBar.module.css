@@ -1,21 +1,39 @@
 .topbar {
     width: 100%;
-
-    border-bottom: 2px solid #aaaaaa;
     height: 50px;
     display: flex;
     flex-direction: row;
+    line-height: 50px;
+    box-shadow: 3px 0 5px 5px #aaaaaa;
     justify-content: space-between;
 }
 
-.profile-info {
-    display: flex;
-    width: auto;
-    float: right;
-    border-left: 1px solid #aaaaaa;
+.authorizationLink {
+    display: block;
+
+    border-right: 2px solid #aaaaaa;
+    text-align: center;
+    vertical-align: center;
+
+    padding-left: 15px;
+    padding-right: 10px;
 }
 
-.delimiter {
+.authorizationLink:hover {
+    background-color: #dddddd;
+    cursor: pointer;
+}
+
+.profileInfo {
+    padding-left: 10px;
+    padding-right: 5px;
+}
+
+.topbarItem {
     display: flex;
-    width: auto;
+    flex-direction: row;
+}
+
+.elevatorTitle {
+    padding-left: 15px;
 }

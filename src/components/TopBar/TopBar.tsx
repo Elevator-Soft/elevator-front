@@ -11,15 +11,21 @@ export class TopBar extends React.PureComponent<TopBarProps> {
     render() {
         return (
             <div className={styles.topbar}>
-                <div className={styles.delimiter}/>
-                {
-                    this.props.profile
-                        ? <div/>
-                        : <div className={styles.profileInfo}> <a href="/sign-in/google">Авторизоваться через гугол</a> </div>
-                }
+                <div className={styles.topbarItem}>
+                    <div className={styles.elevatorTitle}>
+                        ELEVATOR CI
+                    </div>
+                </div>
+                <div className={styles.topbarItem}>
+                    {
+                        this.props.profile
+                            ? <div/>
+                            : <a  className={styles.authorizationLink} href="/sign-in"> <div>Войти</div> </a>
+                    }
 
-                <div className={styles.profileInfo}>
-                    <ProfileInformation profile={this.props.profile}/>
+                    <div className={styles.profileInfo}>
+                        <ProfileInformation profile={this.props.profile}/>
+                    </div>
                 </div>
             </div>
         )

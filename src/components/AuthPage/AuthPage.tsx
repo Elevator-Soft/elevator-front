@@ -13,7 +13,7 @@ interface GoogleAuthPageState {
     profile?: Profile;
 }
 
-export class GoogleAuthPage extends React.PureComponent<GoogleAuthPageProps, GoogleAuthPageState> {
+export class AuthPage extends React.PureComponent<GoogleAuthPageProps, GoogleAuthPageState> {
 
     constructor(props: GoogleAuthPageProps) {
         super(props);

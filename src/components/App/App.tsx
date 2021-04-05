@@ -6,7 +6,7 @@ import './App.css';
 import AuthenticationPage from "../AuthenticationPage";
 import HelloPage from "../HelloPage";
 import TopBar from "../TopBar"
-import GoogleAuthPage from "../GoogleAuthPage";
+import AuthPage from "../AuthPage";
 import {Callback, makeUserManager} from "react-oidc";
 import {UserManager} from "oidc-client";
 import {Profile} from "../../models/Profile/Profile";
@@ -17,12 +17,13 @@ interface AppState {
 }
 
 export class App extends React.Component<AppProps, AppState> {
-    userManager: UserManager;
+    googleIdentityUserManager: UserManager;
 
     constructor(props: AppProps) {
         super(props);
 
-        this.userManager = makeUserManager({
+        //это попозже утащу в слой сервисов скорее всего
+        this.googleIdentityUserManager = makeUserManager({
             clockSkew: 300,
             authority: 'https://accounts.google.com',
             scope: 'openid profile email',
@@ -32,7 +33,7 @@ export class App extends React.Component<AppProps, AppState> {
             automaticSilentRenew: true,
             client_id: '498787926402-3g4k9qteipbiahitls1r709is6fule9a.apps.googleusercontent.com',
             response_type: 'token id_token',
-            redirect_uri: 'http://localhost:3000/sign-in/callback',
+            redirect_uri: 'http://localhost:3000/sign-in/callback/google', //временно так
             post_logout_redirect_uri: 'http://localhost:3000',
         });
 
@@ -40,11 +41,12 @@ export class App extends React.Component<AppProps, AppState> {
     }
 
     async componentDidMount() {
-        await this.setUser();
+        await this.setUser(this.googleIdentityUserManager);
     }
 
-    async setUser() {
-        const user = await this.userManager.getUser();
+    async setUser(userManager: UserManager) {
+        const user = await userManager.getUser();
+
         console.log(user);
 
         if (!user?.profile)
@@ -64,21 +66,21 @@ export class App extends React.Component<AppProps, AppState> {
                 </div>
                 <Switch>
                     <Route exact path="/sign-in" render={(_ => <AuthenticationPage/>)}/>
-                    <Route exact path="/hello" render={(_ => <HelloPage/>)}/>
-                    <Route exact path="/sign-in/google" render={_ => <GoogleAuthPage userManager={this.userManager}/> }/>
+                    <Route exact path="/sign-in/google" render={_ => <AuthPage userManager={this.googleIdentityUserManager}/> }/>
                     <Route
-                        path="/sign-in/callback"
+                        path="/sign-in/callback/google"
                         render={(routeProps) => {
                             return <Callback
                                 onSuccess={async (user) => {
                                     routeProps.history.push('/');
-                                    await this.setUser();
+                                    await this.setUser(this.googleIdentityUserManager);
                                 }}
                                 onError={(error) => {
                                     console.log('openid error', error);
                                 }}
-                                userManager={this.userManager}
+                                userManager={this.googleIdentityUserManager}
                             />;}}/>
+                    <Route exact path="/" render={(_ => <HelloPage/>)}/>
                 </Switch>
             </div>
         );

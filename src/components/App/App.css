@@ -1,6 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&display=swap');
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
 .App {
+  display: flex;
+  flex-direction: column;
   min-height: 100%;
   background-color: #ffffff;
+  font-family: 'Noto Sans', sans-serif;
+  font-weight: bold;
+  font-size: 14pt;
 }
 
 .App-logo {
@@ -34,5 +46,4 @@
 
 .header {
   width: 100%;
-  min-height: 150px;
 }
