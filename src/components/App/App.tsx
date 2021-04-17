@@ -4,12 +4,18 @@ import { Switch, Route, RouteComponentProps } from "react-router-dom";
 import './App.css';
 
 import AuthenticationPage from "../AuthenticationPage";
-import HelloPage from "../HelloPage";
+import ProjectsPage from "../ProjectsPage";
 import TopBar from "../TopBar"
 import AuthPage from "../AuthPage";
-import {Callback, makeUserManager} from "react-oidc";
+import NoAuthenticatedUserPage from "../NoAuthenticatedUserPage";
+
+import {Callback} from "react-oidc";
 import {UserManager} from "oidc-client";
 import {Profile} from "../../models/Profile/Profile";
+import {UserService} from "../../services";
+import {ApiClient} from "../../client";
+
+
 
 interface AppProps extends RouteComponentProps { }
 interface AppState {
@@ -17,48 +23,35 @@ interface AppState {
 }
 
 export class App extends React.Component<AppProps, AppState> {
-    googleIdentityUserManager: UserManager;
+    userService: UserService;
+    apiClient: ApiClient;
 
     constructor(props: AppProps) {
         super(props);
-
-        //это попозже утащу в слой сервисов скорее всего
-        this.googleIdentityUserManager = makeUserManager({
-            clockSkew: 300,
-            authority: 'https://accounts.google.com',
-            scope: 'openid profile email',
-            loadUserInfo: true,
-            monitorSession: true, // NOTE: for logout sync to work across tabs
-            filterProtocolClaims: true,
-            automaticSilentRenew: true,
-            client_id: '498787926402-3g4k9qteipbiahitls1r709is6fule9a.apps.googleusercontent.com',
-            response_type: 'token id_token',
-            redirect_uri: 'http://localhost:3000/sign-in/callback/google', //временно так
-            post_logout_redirect_uri: 'http://localhost:3000',
-        });
-
+        this.userService = new UserService();
+        this.apiClient = new ApiClient(this.userService, 'https://localhost:10101');
         this.state = {profile: undefined};
     }
 
     async componentDidMount() {
-        await this.setUser(this.googleIdentityUserManager);
+        await this.userService.setUser();
+        this.setState({profile: this.userService.profile});
+        console.log('setting user');
+
+        this.forceUpdate();
     }
 
-    async setUser(userManager: UserManager) {
-        const user = await userManager.getUser();
+    componentDidUpdate(prevProps: Readonly<AppProps>, prevState: Readonly<AppState>, snapshot?: any): void {
+        console.log('updated')
+    }
 
-        console.log(user);
-
-        if (!user?.profile)
-            return;
-
-        if (!user.profile.given_name || !user.profile.name)
-            return;
-
-        this.setState({profile: {id: user.profile.given_name, name: user.profile.name}})
+    setUser() {
+        console.log('setting user');
+        this.setState({profile: this.userService.profile})
     }
 
     render() {
+        console.log('render app');
         return (
             <div className="App">
                 <div className="header">
@@ -66,21 +59,22 @@ export class App extends React.Component<AppProps, AppState> {
                 </div>
                 <Switch>
                     <Route exact path="/sign-in" render={(_ => <AuthenticationPage/>)}/>
-                    <Route exact path="/sign-in/google" render={_ => <AuthPage userManager={this.googleIdentityUserManager}/> }/>
+                    <Route exact path="/sign-in/google" render={_ => <AuthPage userManager={this.userService.userManager}/> }/>
                     <Route
                         path="/sign-in/callback/google"
                         render={(routeProps) => {
                             return <Callback
                                 onSuccess={async (user) => {
                                     routeProps.history.push('/');
-                                    await this.setUser(this.googleIdentityUserManager);
+                                    await this.userService.setUser();
+                                    this.setUser();
                                 }}
                                 onError={(error) => {
                                     console.log('openid error', error);
                                 }}
-                                userManager={this.googleIdentityUserManager}
+                                userManager={this.userService.userManager}
                             />;}}/>
-                    <Route exact path="/" render={(_ => <HelloPage/>)}/>
+                    <Route exact path="/" render={(_ => this.state.profile ? <ProjectsPage apiClient={this.apiClient} profile={this.state.profile}/> : <NoAuthenticatedUserPage/>)}/>
                 </Switch>
             </div>
         );

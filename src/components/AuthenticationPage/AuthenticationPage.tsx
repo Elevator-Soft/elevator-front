@@ -22,9 +22,9 @@ export class AuthenticationPage extends React.Component<AuthenticationPageProps>
                                 Вход через Google
                             </div>
                         </a>
-                        <a href={"/sign-in/github"} className={styles.googleAuthorizationLink}>
+                        <a href={"/sign-in/google"} className={styles.googleAuthorizationLink}>
                             <div>
-                                Вход через Github
+                                Еще раз через Google
                             </div>
                         </a>
                     </div>
