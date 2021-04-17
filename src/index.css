@@ -10,9 +10,30 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   width: 100%;
+  overflow-y: scroll;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+::-webkit-scrollbar {
+  width: 60px;
+}
+
+::-webkit-scrollbar-track {
+  width: 50px;
+  background-image: url("resources/ropes.svg");
+  background-size: 50px auto;
+  background-repeat: no-repeat repeat;
+}
+
+::-webkit-scrollbar-thumb {
+  background-image: url("resources/logo.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 50px auto;
+  fill-opacity: 1;
+  stroke-opacity: 1;
 }
