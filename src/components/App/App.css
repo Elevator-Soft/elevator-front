@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
 
 a {
   text-decoration: none;
@@ -10,8 +11,13 @@ a {
   flex-direction: column;
   min-height: 100%;
   background-color: #ffffff;
-  font-family: 'Noto Sans', sans-serif;
-  font-weight: bold;
+  font-family: 'JetBrains Mono', monospace, sans-serif;
+  font-size: 14pt;
+}
+
+div {
+  font-family: 'JetBrains Mono', monospace, sans-serif;
+  text-align: left;
   font-size: 14pt;
 }
 
@@ -47,3 +53,4 @@ a {
 .header {
   width: 100%;
 }
+

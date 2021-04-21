@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
+
+.dropdownMenuContainer {
+    position: relative;
+    top: -10px;
+    left: 20px;
+}
+
+.dropdownButton {
+    height: 100%;
+    border: 0;
+    background-color: #aaaaaa00;
+    font-family: 'JetBrains Mono', monospace, sans-serif;
+    text-align: left;
+}
+
+.dropdown {
+    height: 100%;
+}
+
+.dropdownButton:hover {
+    background-color: #cccccc;
+}
+
+.dropdownMenu {
+    background-color: #ffffff;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.14);
+    padding: 0;
+}
+
+.dropdownItem {
+    background-color: #ffffff;
+    display: block;
+    line-height: 40px;
+}
+
+.dropdownItem:hover {
+    background-color: #cccccc;
+}

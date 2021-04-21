@@ -23,26 +23,17 @@ export class UserService {
     }
 
     async setUser() {
-        console.log('setting user');
 
         const user = await this.userManager.getUser();
 
         if (!user?.profile)
-        {
-            console.log('return because no profile')
             return;
-        }
 
         if (!user.profile.given_name || !user.profile.name || !user.id_token)
-        {
-            console.log('return because no properties in profile')
             return;
-        }
 
 
         this.profile = { id: user.profile.name, name: user.profile.name, token: user.id_token };
-
-        console.log(this.profile);
     }
 
     getToken(): string {

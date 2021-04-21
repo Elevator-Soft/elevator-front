@@ -1,7 +1,6 @@
 import React from "react";
 import {Profile} from "../../models/Profile/Profile";
 import {UserManager} from "oidc-client"
-import {makeUserManager} from "react-oidc"
 import {RouteComponentProps} from "react-router-dom";
 
 interface GoogleAuthPageProps extends RouteComponentProps {

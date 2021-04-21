@@ -1,0 +1,90 @@
+.modal {
+    padding: 10px;
+    outline: 0
+}
+
+.modalContent {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 350px;
+    background-color: #ffffff;
+    outline: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 36px 36px 36px 32px;
+}
+
+.title {
+    font-size: 22px;
+    line-height: 29px;
+}
+
+.inputs {
+    margin-top: 36px;
+    display: flex;
+    flex-direction: column;
+}
+
+.input {
+    display: flex;
+    flex-direction: row;
+
+    margin-bottom: 18px;
+}
+
+.inputTitle {
+    display: flex;
+    width: 100px;
+    height: 40px;
+    margin-right: 12px;
+
+    font-size: 14px;
+    vertical-align: middle
+}
+
+.inputValue {
+    width: 420px;
+    height: 40px;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+
+    margin-top: 36px;
+}
+
+.saveButton {
+    width: 120px;
+    height: 40px;
+    padding: 11px 16px;
+    color: #ffffff;
+    background-color: #333333;
+    margin-right: 16px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.saveButton:hover {
+    background-color: #000000;
+}
+
+.cancelButton {
+    width: 120px;
+    height: 40px;
+    padding: 11px 16px;
+    color: #333333;
+    background-color: #ffffff;
+    border: solid #333333 1px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.cancelButton:hover {
+    background-color: #e5e5e5;
+}

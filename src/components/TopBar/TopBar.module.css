@@ -6,6 +6,8 @@
     line-height: 50px;
     box-shadow: 3px 0 5px 5px #aaaaaa;
     justify-content: space-between;
+
+    background: #e5e5e5;
 }
 
 .authorizationLink {
@@ -27,6 +29,14 @@
 .profileInfo {
     padding-left: 10px;
     padding-right: 5px;
+    margin-right: 230px;
+
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 50px;
+    align-items: center;
+    letter-spacing: 0.02em;
 }
 
 .topbarItem {
@@ -35,5 +45,23 @@
 }
 
 .elevatorTitle {
+    margin-left: 200px;
     padding-left: 15px;
+    padding-right: 15px;
+
+    font-style: normal;
+    font-weight: 300;
+    font-size: 18px;
+    align-items: center;
+    letter-spacing: 0.32em;
+}
+
+
+button {
+    height: 100%;
+    width: auto;
+    border: 0;
+    background-color: #aaaaaa00;
+    font-family: 'JetBrains Mono', monospace, sans-serif;
+    text-align: left;
 }

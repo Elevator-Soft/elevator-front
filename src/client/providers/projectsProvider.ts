@@ -1,4 +1,4 @@
-import {Project, OperationResult} from "../models";
+import {Project, OperationResult, CreateProjectRequest, CreateProjectResponse} from "../models";
 import {UserService} from "../../services";
 
 export class ProjectsProvider {
@@ -33,6 +33,36 @@ export class ProjectsProvider {
 
         if (operationResult.isSuccessful)
             return operationResult.value!;
+        throw Error(operationResult.error);
+    }
+
+    public async createProject(createProjectRequest: CreateProjectRequest): Promise<CreateProjectResponse> {
+        if (!this.userService.profile?.token)
+            throw Error('User is not authenticated');
+
+        const url = this.apiUrl + '/projects';
+        const options: RequestInit = {
+            method: "POST",
+            headers: {
+                'Accept': "application/json",
+                'Content-Type': "application/json",
+                'Authorization': "Bearer " + this.userService.profile.token
+            },
+            body: JSON.stringify(createProjectRequest)
+        };
+
+        let operationResult: OperationResult<CreateProjectResponse>;
+
+        const response = await fetch(url, options);
+        if (response.status >= 200 && response.status < 300) {
+            operationResult = await response.json();
+        } else {
+            throw response;
+        }
+
+        if (operationResult.isSuccessful)
+            return operationResult.value!;
+
         throw Error(operationResult.error);
     }
 }

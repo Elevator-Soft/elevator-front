@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
+
+.projectContainer {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    padding: 5px;
+    background: #F2F2F2;
+}
+
+.projectName {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: 0.02em;
+}
+
+.projectName:hover {
+    text-decoration: underline;
+}

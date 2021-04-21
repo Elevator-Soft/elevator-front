@@ -2,13 +2,17 @@ import React from "react";
 import {RouteComponentProps} from "react-router-dom";
 
 import styles from './AuthenticationPage.module.css'
+import {Profile} from "../../models/Profile/Profile";
 
 interface AuthenticationPageProps extends RouteComponentProps {
-
+    profile?: Profile
 }
 
-export class AuthenticationPage extends React.Component<AuthenticationPageProps> {
-    render = () => {
+export class AuthenticationPage extends React.PureComponent<AuthenticationPageProps> {
+    render() {
+        if (this.props.profile)
+            this.props.history.push('/');
+
         return (
             <div className={styles.container}>
                 <div className={styles.rowContainer}>

@@ -3,7 +3,10 @@ import {RouteComponentProps} from "react-router-dom";
 import {ApiClient, Project} from "../../client";
 import {Profile} from "../../models/Profile/Profile";
 
+import NoProjectsPage from "./NoProjectsPage"
+
 import styles from "./ProjectPage.module.css";
+import {ProjectCard} from "../ProjectCard/ProjectCard";
 
 interface ProjectsPageProps extends RouteComponentProps {
     apiClient: ApiClient;
@@ -21,7 +24,6 @@ export class ProjectsPage extends React.Component<ProjectsPageProps, ProjectsPag
     }
 
     async componentDidMount() {
-        console.log(this.props.profile);
         if (!this.props.profile)
             return;
 
@@ -29,23 +31,27 @@ export class ProjectsPage extends React.Component<ProjectsPageProps, ProjectsPag
         this.setState({projects: projects});
     }
 
-    componentDidUpdate(prevProps: Readonly<ProjectsPageProps>, prevState: Readonly<ProjectsPageState>, snapshot?: any): void {
-        console.log('updated project page')
-    }
-
     renderProject(project: Project) {
-        return (
-            <div className={styles.project}>
-                <p>{'Id: ' + project.id}</p>
-                <p>{'Name: ' + project.name}</p>
-            </div>
-        )
+        return <ProjectCard key={project.id} id={project.id} name={project.name}/>;
     }
 
     render() {
+        if (!this.state.projects)
+            return (
+                <div className={styles.container}>
+                    <div>
+                        "Loading..."
+                    </div>
+                </div>
+            );
+
+        if (this.state.projects.length === 0) {
+            return <NoProjectsPage/>
+        }
+
         return (
             <div className={styles.container}>
-                { this.state.projects ? this.state.projects.map(this.renderProject) : "Нечего показывать иди нахуй"}
+                { this.state.projects.map(this.renderProject) }
             </div>
         );
     }
