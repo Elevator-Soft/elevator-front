@@ -3,14 +3,15 @@ import {RouteComponentProps} from "react-router-dom";
 
 import styles from './AuthenticationPage.module.css'
 import {Profile} from "../../models/Profile/Profile";
+import {User} from "../../client";
 
 interface AuthenticationPageProps extends RouteComponentProps {
-    profile?: Profile
+    user?: User
 }
 
 export class AuthenticationPage extends React.PureComponent<AuthenticationPageProps> {
     render() {
-        if (this.props.profile)
+        if (this.props.user)
             this.props.history.push('/');
 
         return (

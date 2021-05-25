@@ -10,16 +10,14 @@ import AuthPage from "../AuthPage";
 import ProjectPage from "../ProjectPage"
 
 import {Callback} from "react-oidc";
-import {Profile} from "../../models/Profile/Profile";
 import {UserService} from "../../services";
-import {ApiClient} from "../../client";
+import {ApiClient, User} from "../../client";
 import CreateProjectModal from "../CreateProjectModal";
-
 
 
 interface AppProps extends RouteComponentProps { }
 interface AppState {
-    profile?: Profile
+    user?: User
 }
 
 export class App extends React.Component<AppProps, AppState> {
@@ -30,34 +28,49 @@ export class App extends React.Component<AppProps, AppState> {
         super(props);
         this.userService = new UserService();
         this.apiClient = new ApiClient(this.userService, 'https://localhost:10101');
-        this.state = {profile: this.userService.profile};
+        this.state = {user: undefined};
     }
 
     async componentDidMount() {
-        await this.userService.setUser();
-        this.setUser();
+        await this.trySetUser();
     }
 
-    setUser() {
-        this.setState({profile: this.userService.profile})
+    private async trySetUser() {
+        if (!await this.userService.isUserAuthorized())
+            return;
+        let user = await this.apiClient.users.getCurrentUser();
+        if (!user.isRegistered)
+        {
+            await this.register();
+            user = await this.apiClient.users.getCurrentUser();
+        }
+        this.setState({user: user})
+    }
+
+    private async singIn() {
+        await this.trySetUser();
+    }
+
+    private async register() {
+        await this.apiClient.users.register();
     }
 
     render() {
         return (
             <div className="App">
                 <div className="header">
-                    <TopBar profile={this.state.profile}/>
+                    <TopBar user={this.state.user}/>
                 </div>
                 <Switch>
-                    <Route exact path="/sign-in" render={(_ => <AuthenticationPage profile={this.state.profile}/>)}/>
+                    <Route exact path="/sign-in" render={(_ => <AuthenticationPage user={this.state.user}/>)}/>
                     <Route exact path="/sign-in/google" render={_ => <AuthPage userManager={this.userService.userManager}/> }/>
                     <Route
                         path="/sign-in/callback/google"
                         render={(routeProps) => {
                             return <Callback
-                                onSuccess={async (user) => {
-                                    await this.userService.setUser();
-                                    this.setUser();
+                                onSuccess={async (_) => {
+                                    await this.singIn();
+
                                     routeProps.history.push('/');
                                 }}
                                 onError={(error) => {
@@ -67,7 +80,7 @@ export class App extends React.Component<AppProps, AppState> {
                             />;}}/>
                     <Route exact path="/create-project" render={(_ => <CreateProjectModal client={this.apiClient}/>) }/>
                     <Route exact path={"/projects/:id"} component={ProjectPage}/>
-                    <Route exact path="/" render={(_ => this.state.profile ? <ProjectsPage apiClient={this.apiClient} profile={this.state.profile}/> : <AuthenticationPage profile={this.state.profile}/>)}/>
+                    <Route exact path="/" render={(_ => this.state.user ? <ProjectsPage apiClient={this.apiClient} user={this.state.user}/> : <AuthenticationPage user={this.state.user}/>)}/>
                 </Switch>
             </div>
         );

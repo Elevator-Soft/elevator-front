@@ -1,6 +1,6 @@
 import React from "react";
 import {RouteComponentProps} from "react-router-dom";
-import {ApiClient, Project} from "../../client";
+import {ApiClient, Project, User} from "../../client";
 import {Profile} from "../../models/Profile/Profile";
 
 import NoProjectsPage from "./NoProjectsPage"
@@ -10,7 +10,7 @@ import {ProjectCard} from "../ProjectCard/ProjectCard";
 
 interface ProjectsPageProps extends RouteComponentProps {
     apiClient: ApiClient;
-    profile?: Profile;
+    user?: User;
 }
 
 interface ProjectsPageState {
@@ -24,7 +24,7 @@ export class ProjectsPage extends React.Component<ProjectsPageProps, ProjectsPag
     }
 
     async componentDidMount() {
-        if (!this.props.profile)
+        if (!this.props.user)
             return;
 
         const projects = await this.props.apiClient.projects.getAllProjects();

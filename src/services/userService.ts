@@ -1,10 +1,11 @@
 import {makeUserManager} from "react-oidc";
 import {UserManager} from "oidc-client";
-import {Profile} from "../models/Profile/Profile";
+import { User } from "../client";
 
 export class UserService {
     userManager: UserManager;
-    profile?: Profile;
+    private user?: User;
+    private token?: string;
 
     constructor() {
         this.userManager = makeUserManager({
@@ -22,29 +23,22 @@ export class UserService {
         });
     }
 
-    async setUser() {
-
+    private async setToken() {
         const user = await this.userManager.getUser();
-
-        if (!user?.profile)
-            return;
-
-        if (!user.profile.given_name || !user.profile.name || !user.id_token)
-            return;
-
-
-        this.profile = { id: user.profile.name, name: user.profile.name, token: user.id_token };
+        this.token = user?.id_token;
     }
 
-    getToken(): string {
-        if (!this.profile)
+    async getToken(): Promise<string> {
+        await this.setToken();
+
+        if (!this.token)
             throw Error('User is not authorized');
 
-        return this.profile.token
+        return this.token;
     }
 
-    isUserAuthorized(): boolean {
-        console.log(this.profile);
-        return !!this.profile;
+    async isUserAuthorized(): Promise<boolean> {
+        await this.setToken();
+        return !!this.token;
     }
 }

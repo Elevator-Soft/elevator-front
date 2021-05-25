@@ -1,12 +1,11 @@
 import React from "react";
 import Dropdown from 'react-bootstrap/Dropdown';
 
-import { Profile } from "../../../models/Profile/Profile";
-
 import styles from "./AuthenticatedProfileInformation.module.css"
+import {User} from "../../../client/models/users";
 
 interface AuthenticatedProfileInformationProps {
-    profile: Profile;
+    user: User
 }
 
 
@@ -15,7 +14,7 @@ export class AuthenticatedProfileInformation extends React.PureComponent<Authent
         return (
             <Dropdown className={styles.dropdown}>
                 <Dropdown.Toggle className={styles.dropdownButton}>
-                    {this.props.profile.name} ˅
+                    {this.props.user.name} ˅
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu className={styles.dropdownMenu} align="right">

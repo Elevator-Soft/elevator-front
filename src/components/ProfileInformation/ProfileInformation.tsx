@@ -1,16 +1,16 @@
 import React from "react";
-import {Profile} from "../../models/Profile/Profile";
 import {AuthenticatedProfileInformation} from "./AuthenticatedProfileInformation/AuthenticatedProfileInformation";
+import {User} from "../../client/models/users";
 
 interface ProfileInformationProps {
-    profile?: Profile
+    user?: User
 }
 
 export class ProfileInformation extends React.PureComponent<ProfileInformationProps> {
     render() {
         return (
-            this.props.profile ?
-                <AuthenticatedProfileInformation profile={this.props.profile}/> :
+            this.props.user ?
+                <AuthenticatedProfileInformation user={this.props.user}/> :
                 null
         )
     }

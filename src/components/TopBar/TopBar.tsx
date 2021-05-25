@@ -1,10 +1,10 @@
 import React from "react";
-import {Profile} from "../../models/Profile/Profile";
 import styles from './TopBar.module.css'
 import {ProfileInformation} from "../ProfileInformation/ProfileInformation";
+import {User} from "../../client";
 
 interface TopBarProps {
-    profile?: Profile
+    user?: User
 }
 
 export class TopBar extends React.PureComponent<TopBarProps> {
@@ -18,7 +18,7 @@ export class TopBar extends React.PureComponent<TopBarProps> {
                 </div>
                 <div className={styles.topbarItem}>
                     <div className={styles.profileInfo}>
-                        <ProfileInformation profile={this.props.profile}/>
+                        <ProfileInformation user={this.props.user}/>
                     </div>
                 </div>
             </div>

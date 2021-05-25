@@ -1,7 +1,7 @@
-import {Project, OperationResult, CreateProjectRequest, CreateProjectResponse} from "../models";
+import {User, OperationResult} from '../models'
 import {UserService} from "../../services";
 
-export class ProjectsProvider {
+export class UsersProvider {
     userService: UserService;
     apiUrl: string;
 
@@ -10,8 +10,8 @@ export class ProjectsProvider {
         this.apiUrl = apiUrl;
     }
 
-    public async getAllProjects(): Promise<Project[]> {
-        const url = this.apiUrl + '/projects';
+    public async getCurrentUser(): Promise<User> {
+        const url = this.apiUrl + '/users/me';
         const options: RequestInit = {
             method: "GET",
             headers: {
@@ -20,7 +20,7 @@ export class ProjectsProvider {
             }
         };
 
-        let operationResult: OperationResult<Project[]>;
+        let operationResult: OperationResult<User>;
 
         const response = await fetch(url, options);
         if (response.status >= 200 && response.status < 300) {
@@ -34,19 +34,17 @@ export class ProjectsProvider {
         throw Error(operationResult.error);
     }
 
-    public async createProject(createProjectRequest: CreateProjectRequest): Promise<CreateProjectResponse> {
-        const url = this.apiUrl + '/projects';
+    public async register(): Promise<User> {
+        const url = this.apiUrl + '/users/me/register';
         const options: RequestInit = {
             method: "POST",
             headers: {
                 'Accept': "application/json",
-                'Content-Type': "application/json",
                 'Authorization': "Bearer " + await this.userService.getToken()
-            },
-            body: JSON.stringify(createProjectRequest)
+            }
         };
 
-        let operationResult: OperationResult<CreateProjectResponse>;
+        let operationResult: OperationResult<User>;
 
         const response = await fetch(url, options);
         if (response.status >= 200 && response.status < 300) {
@@ -57,7 +55,6 @@ export class ProjectsProvider {
 
         if (operationResult.isSuccessful)
             return operationResult.value!;
-
         throw Error(operationResult.error);
     }
 }
