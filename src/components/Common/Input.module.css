@@ -1,0 +1,53 @@
+.input {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.inputValueSmall {
+    width: 200px;
+    height: 20px;
+    border-radius: 0;
+    border: solid black 1px;
+}
+
+.inputTitleSmall {
+    display: flex;
+    width: 100px;
+    height: 20px;
+
+    font-size: 14px;
+    vertical-align: middle;
+
+    font-style: normal;
+    font-weight: 300;
+    line-height: 28px;
+    letter-spacing: 0.02em;
+}
+
+.inputValueMedium {
+    width: 420px;
+    height: 40px;
+}
+
+.inputTitleMedium {
+    display: flex;
+
+    font-size: 16px;
+    vertical-align: middle;
+
+    font-style: normal;
+    font-weight: 300;
+    line-height: 28px;
+    letter-spacing: 0.02em;
+
+    width: 100px;
+    height: 40px;
+    margin-right: 12px;
+}
+
+.comboboxValueSmall {
+    width: 206px;
+    height: 24px;
+    border-radius: 0;
+    border: solid black 1px;
+}

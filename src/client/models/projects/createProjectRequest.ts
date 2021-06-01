@@ -9,3 +9,7 @@ export class CreateProjectRequest {
         this.gitToken = gitToken;
     }
 }
+
+export class UpdateProjectRequest extends CreateProjectRequest {
+
+}

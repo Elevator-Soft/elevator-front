@@ -1,0 +1,138 @@
+.mainContainer {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 70px;
+    width: 80%;
+    display: flex;
+}
+
+.infoContainer {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+.leftContainer {
+    width: 60%;
+}
+
+.nameContainer {
+    display: flex;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 20px;
+    letter-spacing: 0.02em;
+}
+
+.runButton {
+    background: #aaaaaa;
+    cursor: pointer;
+}
+
+.adminPanelContainer {
+    margin-right: 0;
+    margin-left: auto;
+    width: 350px;
+}
+
+.adminLinkContainer {
+    display: flex;
+    background: #F2F2F2;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0.02em;
+}
+
+.adminLinkContainer:hover {
+    background: #e5e5e5;
+    cursor: pointer;
+}
+
+.downArrow {
+    margin-left: auto;
+    padding-right: 15px;
+}
+
+.adminPanelTitle {
+    text-align: left;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 20px;
+    letter-spacing: 0.02em;
+    margin-bottom: 50px;
+}
+
+.adminLink {
+    width: 100%;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0.02em;
+}
+
+.adminLink:hover {
+    cursor: pointer;
+}
+
+.buildStepsContainer {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    width: 100%;
+}
+
+.modalContainer {
+    background: #fafafa;
+    padding: 10px 15px;
+}
+
+.buildStepContainer {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    background: #F2F2F2;
+}
+
+.buildStepName {
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0.02em;
+    padding: 7px 7px 7px 15px;
+}
+
+.backToProjectLink {
+    text-decoration: underline;
+}
+
+.buildInfoContainer {
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0.02em;
+}
+
+.logsContainer {
+    border-top: solid black 1px;
+    border-bottom: solid black 1px;
+    background: #F2F2F2;
+}
+
+.refreshButton {
+    background: #aaaaaa;
+    cursor: pointer;
+}

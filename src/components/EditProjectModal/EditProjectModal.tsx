@@ -1,24 +1,28 @@
 import {RouteComponentProps} from "react-router-dom";
-import {ApiClient, CreateProjectRequest} from "../../client";
-import React, {ChangeEvent} from "react";
+import {ApiClient, UpdateProjectRequest} from "../../client";
+import React from "react";
 import {Modal} from '@material-ui/core'
 
-import styles from './CreateProjectModal.module.css'
+import styles from './EditProjectModal.module.css'
 
-interface CreateProjectModalProps extends RouteComponentProps {
+interface UpdateProjectModalParams {
+    id: string;
+}
+
+interface UpdateProjectModalProps extends RouteComponentProps<UpdateProjectModalParams> {
     client: ApiClient;
 }
 
-interface CreateProjectModalState {
+interface UpdateProjectModalState {
     name: string;
     gitUrl: string;
     gitToken: string;
     loading: boolean;
 }
 
-export class CreateProjectModal extends React.PureComponent<CreateProjectModalProps, CreateProjectModalState> {
+export class EditProjectModal extends React.PureComponent<UpdateProjectModalProps, UpdateProjectModalState> {
 
-    constructor(props: CreateProjectModalProps) {
+    constructor(props: UpdateProjectModalProps) {
         super(props);
 
         this.state = {name: '', gitUrl: '', gitToken: '', loading: false};
@@ -40,7 +44,7 @@ export class CreateProjectModal extends React.PureComponent<CreateProjectModalPr
         return (<Modal className={styles.modal} open={true} aria-labelledby="simple-modal-title" aria-describedby="simple-modal-description">
             <div className={styles.modalContent}>
                 <div className={styles.title}>
-                    Add a new project
+                    Edit project
                 </div>
                 <div className={styles.inputs}>
                     <div className={styles.input}>
@@ -61,19 +65,19 @@ export class CreateProjectModal extends React.PureComponent<CreateProjectModalPr
                     </div>
                 </div>
                 <div className={styles.buttons}>
-                    <button className={styles.confirmButton} disabled={this.state.loading} onClick={this.saveProject}>Save</button>
+                    <button className={styles.saveButton} disabled={this.state.loading} onClick={this.updateProject}>Save</button>
                     <button className={styles.cancelButton} disabled={this.state.loading} onClick={this.cancel}>Cancel</button>
                 </div>
             </div>
         </Modal>)
     }
 
-    saveProject = () => {
-        const createProjectRequest = new CreateProjectRequest(this.state.name, this.state.gitUrl, this.state.gitToken);
+    updateProject = () => {
+        const updateProjectRequest = new UpdateProjectRequest(this.state.name, this.state.gitUrl, this.state.gitToken);
         this.setState({loading: true});
-        this.props.client.projects.createProject(createProjectRequest).then(_ => {
+        this.props.client.projects.updateProject(this.props.match.params.id, updateProjectRequest).then(project => {
             this.setState({loading: false});
-            this.props.history.push('/');
+            this.props.history.push('/projects/' + project.id);
             }
         ).catch((error) => {
             this.setState({loading: false});
@@ -83,6 +87,6 @@ export class CreateProjectModal extends React.PureComponent<CreateProjectModalPr
     };
 
     cancel = () => {
-        this.props.history.push('/');
+        this.props.history.push('/projects/' + this.props.match.params.id);
     }
 }

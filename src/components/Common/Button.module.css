@@ -1,0 +1,65 @@
+.smallConfirmButton {
+     width: 58px;
+     height: 26px;
+     color: #ffffff;
+     background-color: #333333;
+     margin-right: 15px;
+     margin-bottom: 15px;
+     text-align: center;
+     cursor: pointer;
+     margin-left: auto;
+
+     font-size: 14px;
+     font-style: normal;
+     font-weight: 300;
+     line-height: 28px;
+     letter-spacing: 0.02em;
+
+     padding: 5px 25px;
+}
+
+.smallConfirmButton:hover {
+    background-color: #000000;
+}
+
+.smallConfirmButtonDisabled {
+    width: 58px;
+    height: 26px;
+    color: #ffffff;
+    background-color: #aaaaaa;
+    margin-right: 15px;
+    margin-bottom: 15px;
+    text-align: center;
+    cursor: not-allowed;
+    margin-left: auto;
+
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 28px;
+    letter-spacing: 0.02em;
+
+    padding: 5px 25px;
+}
+
+.mediumConfirmButton {
+    width: 120px;
+    height: 40px;
+    padding: 11px 16px;
+    color: #ffffff;
+    background-color: #333333;
+    margin-right: 5px;
+    text-align: center;
+    cursor: pointer;
+    margin-left: auto;
+
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 28px;
+    letter-spacing: 0.02em;
+}
+
+.mediumConfirmButton:hover {
+    background-color: #000000;
+}

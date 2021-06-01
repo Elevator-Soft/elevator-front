@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
 
-.projectContainer {
+.buildConfigContainer {
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
@@ -8,7 +8,7 @@
     background: #F2F2F2;
 }
 
-.projectName {
+.buildConfigName {
     font-style: normal;
     font-weight: 300;
     font-size: 16px;
@@ -16,6 +16,6 @@
     letter-spacing: 0.02em;
 }
 
-.projectName:hover {
+.buildConfigName:hover {
     text-decoration: underline;
 }

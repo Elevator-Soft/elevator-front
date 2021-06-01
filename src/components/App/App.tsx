@@ -13,6 +13,7 @@ import {Callback} from "react-oidc";
 import {UserService} from "../../services";
 import {ApiClient, User} from "../../client";
 import CreateProjectModal from "../CreateProjectModal";
+import BuildConfigPage from "../BuildConfigPage";
 
 
 interface AppProps extends RouteComponentProps { }
@@ -79,7 +80,8 @@ export class App extends React.Component<AppProps, AppState> {
                                 userManager={this.userService.userManager}
                             />;}}/>
                     <Route exact path="/create-project" render={(_ => <CreateProjectModal client={this.apiClient}/>) }/>
-                    <Route exact path={"/projects/:id"} component={ProjectPage}/>
+                    <Route exact path={"/projects/:id"} render={(_ => this.state.user ? <ProjectPage user={this.state.user} apiClient={this.apiClient}/> : <AuthenticationPage user={this.state.user}/>)}/>
+                    <Route exact path={"/projects/:projectId/buildConfigs/:buildConfigId"} render={(_ => this.state.user ? <BuildConfigPage user={this.state.user} apiClient={this.apiClient}/> : <AuthenticationPage user={this.state.user}/>)}/>
                     <Route exact path="/" render={(_ => this.state.user ? <ProjectsPage apiClient={this.apiClient} user={this.state.user}/> : <AuthenticationPage user={this.state.user}/>)}/>
                 </Switch>
             </div>

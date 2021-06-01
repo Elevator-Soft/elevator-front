@@ -5,7 +5,7 @@ import {Profile} from "../../models/Profile/Profile";
 
 import NoProjectsPage from "./NoProjectsPage"
 
-import styles from "./ProjectPage.module.css";
+import styles from "./ProjectsPage.module.css";
 import {ProjectCard} from "../ProjectCard/ProjectCard";
 
 interface ProjectsPageProps extends RouteComponentProps {
@@ -38,7 +38,7 @@ export class ProjectsPage extends React.Component<ProjectsPageProps, ProjectsPag
     render() {
         if (!this.state.projects)
             return (
-                <div className={styles.container}>
+                <div className={styles.mainContainer}>
                     <div>
                         "Loading..."
                     </div>
@@ -50,7 +50,7 @@ export class ProjectsPage extends React.Component<ProjectsPageProps, ProjectsPag
         }
 
         return (
-            <div className={styles.container}>
+            <div className={styles.mainContainer}>
                 { this.state.projects.map(this.renderProject) }
             </div>
         );

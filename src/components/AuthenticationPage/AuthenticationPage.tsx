@@ -15,7 +15,7 @@ export class AuthenticationPage extends React.PureComponent<AuthenticationPagePr
             this.props.history.push('/');
 
         return (
-            <div className={styles.container}>
+            <div className={styles.mainContainer}>
                 <div className={styles.rowContainer}>
                     <div className={styles.authorizationContainer}>
                         <div className={styles.elevatorTitle}>

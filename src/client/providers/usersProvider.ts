@@ -1,60 +1,19 @@
-import {User, OperationResult} from '../models'
-import {UserService} from "../../services";
+import {User} from '../models'
+import {BaseProvider} from "./baseProvider";
 
-export class UsersProvider {
-    userService: UserService;
-    apiUrl: string;
-
-    constructor(userService: UserService, apiUrl: string) {
-        this.userService = userService;
-        this.apiUrl = apiUrl;
-    }
-
-    public async getCurrentUser(): Promise<User> {
+export class UsersProvider extends BaseProvider{
+    public getCurrentUser(): Promise<User> {
         const url = this.apiUrl + '/users/me';
-        const options: RequestInit = {
-            method: "GET",
-            headers: {
-                'Accept': "application/json",
-                'Authorization': "Bearer " + await this.userService.getToken()
-            }
-        };
-
-        let operationResult: OperationResult<User>;
-
-        const response = await fetch(url, options);
-        if (response.status >= 200 && response.status < 300) {
-            operationResult = await response.json();
-        } else {
-            throw response;
-        }
-
-        if (operationResult.isSuccessful)
-            return operationResult.value!;
-        throw Error(operationResult.error);
+        return this.get<User>(url);
     }
 
-    public async register(): Promise<User> {
+    public register(): Promise<User> {
         const url = this.apiUrl + '/users/me/register';
-        const options: RequestInit = {
-            method: "POST",
-            headers: {
-                'Accept': "application/json",
-                'Authorization': "Bearer " + await this.userService.getToken()
-            }
-        };
+        return this.post<User>(url);
+    }
 
-        let operationResult: OperationResult<User>;
-
-        const response = await fetch(url, options);
-        if (response.status >= 200 && response.status < 300) {
-            operationResult = await response.json();
-        } else {
-            throw response;
-        }
-
-        if (operationResult.isSuccessful)
-            return operationResult.value!;
-        throw Error(operationResult.error);
+    public getAllIds(): Promise<Array<string>> {
+        const url = this.apiUrl + '/users';
+        return this.get<Array<string>>(url);
     }
 }

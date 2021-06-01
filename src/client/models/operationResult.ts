@@ -4,3 +4,9 @@ export interface OperationResult<T> {
     httpStatusCode: number;
     error: string;
 }
+
+export interface VoidOperationResult {
+    isSuccessful: boolean;
+    httpStatusCode: number;
+    error: string;
+}

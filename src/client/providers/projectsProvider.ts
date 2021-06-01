@@ -1,63 +1,29 @@
-import {Project, OperationResult, CreateProjectRequest, CreateProjectResponse} from "../models";
-import {UserService} from "../../services";
+import {Project, CreateProjectRequest, UpdateProjectRequest, GrantAccessRequest} from "../models";
+import {BaseProvider} from "./baseProvider";
 
-export class ProjectsProvider {
-    userService: UserService;
-    apiUrl: string;
-
-    constructor(userService: UserService, apiUrl: string) {
-        this.userService = userService;
-        this.apiUrl = apiUrl;
+export class ProjectsProvider extends BaseProvider {
+    public getAllProjects(): Promise<Project[]> {
+        const url = this.apiUrl + '/projects';
+        return this.get<Project[]>(url);
     }
 
-    public async getAllProjects(): Promise<Project[]> {
+    public createProject(createProjectRequest: CreateProjectRequest): Promise<Project> {
         const url = this.apiUrl + '/projects';
-        const options: RequestInit = {
-            method: "GET",
-            headers: {
-                'Accept': "application/json",
-                'Authorization': "Bearer " + await this.userService.getToken()
-            }
-        };
-
-        let operationResult: OperationResult<Project[]>;
-
-        const response = await fetch(url, options);
-        if (response.status >= 200 && response.status < 300) {
-            operationResult = await response.json();
-        } else {
-            throw response;
-        }
-
-        if (operationResult.isSuccessful)
-            return operationResult.value!;
-        throw Error(operationResult.error);
+        return this.post<Project>(url, JSON.stringify(createProjectRequest));
     }
 
-    public async createProject(createProjectRequest: CreateProjectRequest): Promise<CreateProjectResponse> {
-        const url = this.apiUrl + '/projects';
-        const options: RequestInit = {
-            method: "POST",
-            headers: {
-                'Accept': "application/json",
-                'Content-Type': "application/json",
-                'Authorization': "Bearer " + await this.userService.getToken()
-            },
-            body: JSON.stringify(createProjectRequest)
-        };
+    public getProject(id: string): Promise<Project> {
+        const url = this.apiUrl + '/projects/' + id;
+        return this.get<Project>(url);
+    }
 
-        let operationResult: OperationResult<CreateProjectResponse>;
+    public updateProject(id: string, updateProjectRequest: UpdateProjectRequest): Promise<Project> {
+        const url = this.apiUrl + '/projects/' + id;
+        return this.put<Project>(url, JSON.stringify(updateProjectRequest));
+    }
 
-        const response = await fetch(url, options);
-        if (response.status >= 200 && response.status < 300) {
-            operationResult = await response.json();
-        } else {
-            throw response;
-        }
-
-        if (operationResult.isSuccessful)
-            return operationResult.value!;
-
-        throw Error(operationResult.error);
+    public async grantAccess(grantAccessRequest: GrantAccessRequest) {
+        const url = this.apiUrl + '/projects/' + grantAccessRequest.projectId + '/grantAccess';
+        await this.post<any>(url, JSON.stringify(grantAccessRequest));
     }
 }

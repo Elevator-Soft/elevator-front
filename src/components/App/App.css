@@ -15,6 +15,10 @@ a {
   font-size: 14pt;
 }
 
+html {
+  min-height: 100%;
+}
+
 div {
   font-family: 'JetBrains Mono', monospace, sans-serif;
   text-align: left;
