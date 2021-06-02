@@ -27,8 +27,9 @@
 }
 
 .runButton {
-    background: #aaaaaa;
+    text-decoration: underline;
     cursor: pointer;
+    margin-left: auto;
 }
 
 .adminPanelContainer {

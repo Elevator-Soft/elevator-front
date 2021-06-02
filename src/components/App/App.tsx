@@ -60,7 +60,7 @@ export class App extends React.Component<AppProps, AppState> {
         return (
             <div className="App">
                 <div className="header">
-                    <TopBar user={this.state.user}/>
+                    <TopBar user={this.state.user} goHome={() => {this.props.history.push('/')}}/>
                 </div>
                 <Switch>
                     <Route exact path="/sign-in" render={(_ => <AuthenticationPage user={this.state.user}/>)}/>
